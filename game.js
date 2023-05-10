@@ -40,15 +40,13 @@ class Demo1 extends AdventureScene {
                 // });
             });
 
-        let key = this.add.text(this.w * 0.5, this.w * 0.1, "🔑 key")
+        let key = this.add.text(this.w * 0.5, this.w * 0.1, "Go into the forest")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("It's a nice key.")
+                this.showMessage("The trees get denser")
             })
             .on('pointerdown', () => {
-                this.showMessage("You pick up the key.");
-                this.gainItem('key');
                 this.tweens.add({
                     targets: key,
                     y: `-=${2 * this.s}`,
@@ -56,90 +54,169 @@ class Demo1 extends AdventureScene {
                     duration: 500,
                     onComplete: () => key.destroy()
                 });
+                this.gotoScene('demo2');
             })
 
-        let door = this.add.text(this.w * 0.1, this.w * 0.15, "🚪 locked door")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                if (this.hasItem("key")) {
-                    this.showMessage("You've got the key for this door.");
-                } else {
-                    this.showMessage("It's locked. Can you find a key?");
-                }
-            })
-            .on('pointerdown', () => {
-                if (this.hasItem("key")) {
-                    this.loseItem("key");
-                    this.showMessage("*squeak*");
-                    door.setText("🚪 unlocked door");
-                    this.gotoScene('demo2');
-                }
-            })
+        // let door = this.add.text(this.w * 0.1, this.w * 0.15, "🚪 locked door")
+        //     .setFontSize(this.s * 2)
+        //     .setInteractive()
+        //     .on('pointerover', () => {
+        //         if (this.hasItem("key")) {
+        //             this.showMessage("You've got the key for this door.");
+        //         } else {
+        //             this.showMessage("It's locked. Can you find a key?");
+        //         }
+        //     })
+        //     .on('pointerdown', () => {
+        //         if (this.hasItem("key")) {
+        //             this.loseItem("key");
+        //             this.showMessage("*squeak*");
+        //             door.setText("🚪 unlocked door");
+        //             this.gotoScene('demo2');
+        //         }
+        //     })
 
     }
 }
 
-class Demo2 extends AdventureScene {
+class innerforest extends AdventureScene {
     constructor() {
-        super("demo2", "The second room has a long name (it truly does).");
+        super("demo2", "You find yourself deeper in the forest");
+    }
+    preload()
+    {
+        this.load.path = './assets/';
+        this.load.image('background1','P3.png');
     }
     onEnter() {
-        this.add.text(this.w * 0.3, this.w * 0.4, "just go back")
+        this.add.image(0,0,"background1").setOrigin(0,0).setDisplaySize(this.w*.75,this.h);
+        this.add.text(this.w * 0.3, this.h * 0.8, "Go back")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("You've got no other choice, really.");
+                this.showMessage("The lake is still out there...");
             })
             .on('pointerdown', () => {
+                this.tweens.add({
+                    targets: key,
+                    y: `-=${2 * this.s}`,
+                    alpha: { from: 1, to: 0 },
+                    duration: 500,
+                    onComplete: () => key.destroy()
+                });
+                this.gotoScene('demo1');
+            });
+            this.add.text(this.w * 0.35, this.h * 0.3, "Go Even Deeper...")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("What Could Await you here?");
+            })
+            .on('pointerdown', () => {
+                this.tweens.add({
+                    targets: key,
+                    y: `-=${2 * this.s}`,
+                    alpha: { from: 1, to: 0 },
+                    duration: 500,
+                    onComplete: () => key.destroy()
+                });
+                this.gotoScene('heart');
+            });
+            this.add.text(this.w * 0.2, this.h * 0.83, "Mushroom")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("The lake is still out there...");
+            })
+            .on('pointerdown', () => {
+                this.tweens.add({
+                    targets: key,
+                    y: `-=${2 * this.s}`,
+                    alpha: { from: 1, to: 0 },
+                    duration: 500,
+                    onComplete: () => key.destroy()
+                });
                 this.gotoScene('demo1');
             });
 
-        let finish = this.add.text(this.w * 0.6, this.w * 0.2, '(finish the game)')
-            .setInteractive()
-            .on('pointerover', () => {
-                this.showMessage('*giggles*');
-                this.tweens.add({
-                    targets: finish,
-                    x: this.s + (this.h - 2 * this.s) * Math.random(),
-                    y: this.s + (this.h - 2 * this.s) * Math.random(),
-                    ease: 'Sine.inOut',
-                    duration: 500
-                });
-            })
-            .on('pointerdown', () => this.gotoScene('outro'));
+        // let finish = this.add.text(this.w * 0.6, this.w * 0.2, '(finish the game)')
+        //     .setInteractive()
+        //     .on('pointerover', () => {
+        //         this.showMessage('*giggles*');
+        //         this.tweens.add({
+        //             targets: finish,
+        //             x: this.s + (this.h - 2 * this.s) * Math.random(),
+        //             y: this.s + (this.h - 2 * this.s) * Math.random(),
+        //             ease: 'Sine.inOut',
+        //             duration: 500
+        //         });
+        //     })
+        //     .on('pointerdown', () => this.gotoScene('outro'));
     }
 }
 class underlake extends AdventureScene {
     constructor() {
         super('underlake', "Under the water... Look out!");
-
+        // this.angle = 0;
+        // this.speed = 2;
+        // this.scale = 0.3;
+        this.sprite = null;
     }
-    preload()
-    {
 
+    preload() {
         this.load.image('sprite', './assets/C1.png');
     }
 
-
     onEnter() {
-        let angle=0;
-        let speed=2;
-        let scale=.3;
-        let sprite = this.add.sprite(400, 300, 'sprite');
+        this.cameras.main.setBackgroundColor('#ADD8E6');
+        this.sprite = this.add.sprite(600, 500, 'sprite');
+        // let timer = this.time.addEvent({
+        //     delay: 3000, 
+        //     callback: () => {
+        //         this.showMessage("Aaaargh!!");
+        //         this.gotoScene('demo1');
+        //     }
+        // });
+        this.sprite.setInteractive().on('pointerover', () => {
+            this.showMessage("Defend Yourself!");
 
-        // this.cameras.main.setBackgroundColor('#add8e6');
+        }).on('pointerdown',()=>{
+            this.sprite.destroy();
+            this.showMessage("You killed it! You got the Sword!")
+            this.gainItem("Sword");
+            this.gotoScene('demo1');
+            
+        });
+        this.tweens.add({
+            targets: this.sprite,
+            x: this.cameras.main.centerX,
+            y: this.cameras.main.centerY,
+            scale: 4,
+            angle:360,
+            ease: 'Sine.inOut',
+            duration: 2000
+            //repeat: -1,
+            //yoyo: true
+        });
+        this.time.addEvent({
+            delay: 2000,
+            callback: function() {
+                this.showMessage('AAARGH!');
+                this.gotoScene('demo1');
+            },
+            callbackScope: this
+        });
+
         
     }
-    update() {
-        angle += speed * 0.01;
-        scale += 0.01;
-        sprite.setPosition(400 + Math.cos(angle) * 200, 300 + Math.sin(angle) * 200);
-        sprite.setScale(scale);
-        sprite.angle += 1;
-    }
 
+    update() {
+      
+    }
 }
+
+
+
 
 class Intro extends Phaser.Scene {
     constructor() {
@@ -210,7 +287,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [Intro, Demo1, Demo2, Outro],
+    scene: [Intro, Demo1, Outro, underlake,innerforest],
     title: "Adventure Game",
 });
 
