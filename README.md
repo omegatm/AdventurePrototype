@@ -1,21 +1,21 @@
 A simple adventure game by {Joseph Verespey} based on a simple adventure game engine by [Adam Smith](https://github.com/rndmcnlly).
 
 Code requirements:
-- **4+ scenes based on `AdventureScene`**: underlake,castle,heart,innerforest,crossroads.
+- **4+ scenes based on `AdventureScene`**: underlake,castle,heart,innerforest,Demo1.
 - **2+ scenes *not* based on `AdventureScene`**: Intro,Outro.
 - **2+ methods or other enhancement added to the adventure game engine to simplify my scenes**:
     - Combining Items(making poison bait).
     - Changed message positioning to fit longer frame text titles.
 
 Experience requirements:
-- **4+ locations in the game world**: unsatisfied (name at least 4 of the classes).
-- **2+ interactive objects in most scenes**: unsatisfied (describe two examples)
-- **Many objects have `pointerover` messages**: unsatisfied (describe two examples)
-- **Many objects have `pointerdown` effects**: unsatisfied (describe two examples)
-- **Some objects are themselves animated**: unsatisfied (describe two examples)
+- **4+ locations in the game world**: underlake,castle,heart,innerforest,Demo1.
+- **2+ interactive objects in most scenes**:Cheese, shield.
+- **Many objects have `pointerover` messages**: sheol,cheese
+- **Many objects have `pointerdown` effects**: Lake, Heart
+- **Some objects are themselves animated**: Heart, Fish
 
 Asset sources:
-- (For each image/audio/video asset used, describe how it was created. What tool did you use to create it? Was it based on another work? If so, how did you change it, and where can we learn more about the original work for comparison? Use [Markdown link syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#links).)
+- All sprites were drawn by me in Aseprite. Backgrounds are (intentionally) low resolution screenshots I took in the game Oblivion (Sheol is basically me drawing Sheogorath from memory);
 
 Code sources:
 - `adventure.js` and `index.html` were created for this project [Adam Smith](https://github.com/rndmcnlly) and edited by me.
