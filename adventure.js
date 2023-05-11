@@ -49,6 +49,22 @@ class AdventureScene extends Phaser.Scene {
                 }
             });
 
+            this.add.text(this.w*.9,this.h*.9,"Combine").setStyle({ fontSize: `${2 * this.s}px` })
+            .setInteractive({useHandCursor: true}).on('pointerover',()=>this.showMessage("combine items?"))
+            .on('pointerdown',()=>{
+                if(this.hasItem('Poison Mushroom')&&this.hasItem('Worm'))
+                {
+                    this.gainItem("Poison Bait");
+                    this.loseItem('Poison Mushroom');
+                    this.loseItem('Worm');
+                }
+                else{
+                    this.showMessage('No combinations can be made');
+                }
+            });
+
+
+
         this.onEnter();
 
     }

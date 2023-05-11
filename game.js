@@ -90,7 +90,7 @@ class innerforest extends AdventureScene {
     }
     onEnter() {
         this.add.image(0,0,"background1").setOrigin(0,0).setDisplaySize(this.w*.75,this.h);
-        this.add.text(this.w * 0.3, this.h * 0.8, "Go back")
+        let back=this.add.text(this.w * 0.3, this.h * 0.8, "Go back")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
@@ -98,15 +98,15 @@ class innerforest extends AdventureScene {
             })
             .on('pointerdown', () => {
                 this.tweens.add({
-                    targets: key,
+                    targets: back,
                     y: `-=${2 * this.s}`,
                     alpha: { from: 1, to: 0 },
                     duration: 500,
-                    onComplete: () => key.destroy()
+                    onComplete: () => back.destroy()
                 });
                 this.gotoScene('demo1');
             });
-            this.add.text(this.w * 0.35, this.h * 0.3, "Go Even Deeper...")
+            let deep=this.add.text(this.w * 0.35, this.h * 0.3, "Go Even Deeper...")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
@@ -114,30 +114,63 @@ class innerforest extends AdventureScene {
             })
             .on('pointerdown', () => {
                 this.tweens.add({
-                    targets: key,
+                    targets: deep,
                     y: `-=${2 * this.s}`,
                     alpha: { from: 1, to: 0 },
                     duration: 500,
-                    onComplete: () => key.destroy()
+                    onComplete: () => deep.destroy()
                 });
                 this.gotoScene('heart');
             });
-            this.add.text(this.w * 0.2, this.h * 0.83, "Mushroom")
+            let mush=this.add.text(this.w * 0.2, this.h * 0.83, "🍄Mushroom")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("The lake is still out there...");
+                this.showMessage("A mushroom, looks like it's poisonous");
             })
             .on('pointerdown', () => {
                 this.tweens.add({
-                    targets: key,
+                    targets: mush,
                     y: `-=${2 * this.s}`,
                     alpha: { from: 1, to: 0 },
                     duration: 500,
-                    onComplete: () => key.destroy()
+                    onComplete: () => mush.destroy()
                 });
-                this.gotoScene('demo1');
+                this.gainItem('Poison Mushroom');
             });
+            let worm=this.add.text(this.w * 0.45, this.h * 0.83, "🪱Worm")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("An earthworm, Fish like to eat these right?");
+            })
+            .on('pointerdown', () => {
+                this.tweens.add({
+                    targets: worm,
+                    y: `-=${2 * this.s}`,
+                    alpha: { from: 1, to: 0 },
+                    duration: 500,
+                    onComplete: () => worm.destroy()
+                });
+                this.gainItem('Worm');
+            });
+            let left=this.add.text(this.w * 0.45, this.h * 0.83, "Go Left")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("You see a structure this way");
+            })
+            .on('pointerdown', () => {
+                this.tweens.add({
+                    targets: left,
+                    y: `-=${2 * this.s}`,
+                    alpha: { from: 1, to: 0 },
+                    duration: 500,
+                    onComplete: () => left.destroy()
+                });
+                this.gotoScene("castle");
+            });
+
 
         // let finish = this.add.text(this.w * 0.6, this.w * 0.2, '(finish the game)')
         //     .setInteractive()
@@ -152,6 +185,24 @@ class innerforest extends AdventureScene {
         //         });
         //     })
         //     .on('pointerdown', () => this.gotoScene('outro'));
+    }
+}
+class castle extends AdventureScene {
+    constructor() {
+        super("castle", "Welcome to my abode outlander, I am the mad god Sheol");
+    }
+    preload()
+    {
+        this.load.path = './assets/';
+        this.load.image('background2','P4.png');
+        this.load.image('sheol','SHEOGORATH.png');
+    }
+    onEnter() {
+        this.add.image(0,0,"background1").setOrigin(0,0).setDisplaySize(this.w*.75,this.h);
+        this.add.sprite(this.w/2, this.h/2, 'sheol').setOrigin(.5,.5).on('pointerover',()=>{this.showMessage('I heard you can escape this realm if you kill the heart of the forest')});
+        this.
+
+
     }
 }
 class underlake extends AdventureScene {
