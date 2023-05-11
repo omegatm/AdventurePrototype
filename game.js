@@ -18,6 +18,20 @@ class Demo1 extends AdventureScene {
             .setInteractive()
             .on('pointerover', () => this.showMessage("Jump in?"))
             .on('pointerdown', () => {
+                if(this.hasItem("Poison Bait"))
+                {
+                    this.showMessage("You throw the bait in the water, sure enough the fish gobbles it up, a few seconds later it floats dead to the top and you take the sword from it's back");
+                    this.tweens.add({
+                    targets: clip,
+                    y: `-=${2 * this.s}`,
+                    alpha: { from: 1, to: 0 },
+                    duration: 500,
+                    onComplete: () => clip.destroy()
+                    
+                 });
+                 this.gainItem("Sword");
+                }
+                else{
                  this.showMessage("Here we Go");
                  this.tweens.add({
                     targets: clip,
@@ -27,6 +41,7 @@ class Demo1 extends AdventureScene {
                     onComplete: () => clip.destroy()
                  });
                     this.gotoScene('underlake');
+                }
 
                  
                 // this.gainItem('paperclip');
@@ -154,7 +169,7 @@ class innerforest extends AdventureScene {
                 });
                 this.gainItem('Worm');
             });
-            let left=this.add.text(this.w * 0.45, this.h * 0.83, "Go Left")
+            let left=this.add.text(this.w * 0.1, this.h * 0.75, "Go Left")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
@@ -187,9 +202,93 @@ class innerforest extends AdventureScene {
         //     .on('pointerdown', () => this.gotoScene('outro'));
     }
 }
+class heart extends AdventureScene {
+    constructor() {
+        super("heart", "A terrifying (plant?) stands before you... the pounding noise...");
+    }
+    preload()
+    {
+        this.load.path = './assets/';
+        this.load.image('background3','P2.png');
+        this.load.image('hart','Heart1.png');
+    }
+    onEnter() {
+        this.add.image(0,0,"background3").setOrigin(0,0).setDisplaySize(this.w*.75,this.h);
+        let Heart=this.add.sprite(this.w/2-100, this.h/2, 'hart').setOrigin(.5,.5).setInteractive().setScale(2).on('pointerover',()=>{this.showMessage("'Bump-bump'")});
+        let lback=this.add.text(this.w * 0.4, this.h * 0.8, "Go Back")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("go back to the forest?");
+            })
+            .on('pointerdown', () => {
+                this.tweens.add({
+                    targets: lback,
+                    y: `-=${2 * this.s}`,
+                    alpha: { from: 1, to: 0 },
+                    duration: 500,
+                    onComplete: () => lback.destroy()
+                });
+                this.gotoScene("demo2");
+            });
+            let cheese=this.add.text(this.w * 0.2, this.h * 0.9, "🧀Cheese!")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("A delicious vril filled snack");
+            })
+            .on('pointerdown', () => {
+                this.tweens.add({
+                    targets: cheese,
+                    y: `-=${2 * this.s}`,
+                    alpha: { from: 1, to: 0 },
+                    duration: 500,
+                    onComplete: () => cheese.destroy()
+                });
+                this.gainItem("cheese")
+            });
+            Heart.on('pointerdown',()=>{
+                if(this.hasItem("Sword")&&this.hasItem("Shield"))
+                {
+                    this.showMessage("Its no match!!")
+                    this.tweens.add({
+                        targets: Heart,
+                        x: '-=10',
+                        yoyo: true,
+                        repeat: 5,
+                        duration: 50,
+                        onComplete: () => {
+                          this.tweens.add({
+                            targets: Heart,
+                            alpha: 0,
+                            duration: 500,
+                            onComplete: () => {
+                              Heart.destroy();
+                            }
+                          });
+                        }
+                      });
+                    this.gotoScene("outro");
+
+                }
+                else if(this.hasItem("Sword"))
+                {
+                    this.showMessage("You seemed to hurt it, but it's attacks flung you back");
+                }
+                else if(this.hasItem("Shield"))
+                {
+                    this.showMessage("You're safe from it's assault but your attacks have no effect");
+                }
+                else{
+                    this.showMessage("You can't seem to harm it and it's attacks are too much for you to defend from!");
+                }
+            });
+
+    }
+}
 class castle extends AdventureScene {
     constructor() {
-        super("castle", "Welcome to my abode outlander, I am the mad god Sheol");
+        super("castle", "'Welcome to my abode outlander, I am the mad god Sheol'");
     }
     preload()
     {
@@ -198,9 +297,45 @@ class castle extends AdventureScene {
         this.load.image('sheol','SHEOGORATH.png');
     }
     onEnter() {
-        this.add.image(0,0,"background1").setOrigin(0,0).setDisplaySize(this.w*.75,this.h);
-        this.add.sprite(this.w/2, this.h/2, 'sheol').setOrigin(.5,.5).on('pointerover',()=>{this.showMessage('I heard you can escape this realm if you kill the heart of the forest')});
-        this.
+        this.add.image(0,0,"background2").setOrigin(0,0).setDisplaySize(this.w*.75,this.h);
+        this.add.sprite(this.w/2-100, this.h/2, 'sheol').setOrigin(.5,.5).setInteractive().setScale(2).on('pointerover',()=>{this.showMessage("'I heard you can escape this realm if you kill the heart of the forest'")});
+        let shield=this.add.text(this.w * 0.2, this.h * 0.6, "🛡️Shield")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("'My shield? I'll part with it if you give me my favorite snack'");
+            })
+            .on('pointerdown', () => {
+                if(this.hasItem('cheese'))
+                {
+                this.tweens.add({
+                    targets: shield,
+                    y: `-=${2 * this.s}`,
+                    alpha: { from: 1, to: 0 },
+                    duration: 500,
+                    onComplete: () => shield.destroy()
+                });
+                this.gainItem('Shield');
+                this.loseItem('cheese');
+                this.showMessage("Ooh Cheese! Good luck stranger!")
+            }
+            });
+            let gback=this.add.text(this.w * 0.4, this.h * 0.8, "Go Back")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("go back to the forest?");
+            })
+            .on('pointerdown', () => {
+                this.tweens.add({
+                    targets: gback,
+                    y: `-=${2 * this.s}`,
+                    alpha: { from: 1, to: 0 },
+                    duration: 500,
+                    onComplete: () => gback.destroy()
+                });
+                this.gotoScene("demo2");
+            });
 
 
     }
@@ -323,8 +458,16 @@ class Outro extends Phaser.Scene {
     constructor() {
         super('outro');
     }
+    preload(){
+        this.load.image('background4','./assets/P5.png');
+    }
+        
+
     create() {
-        this.add.text(50, 50, "That's all!").setFontSize(50);
+        this.add.image(0, 0, "background4")
+            .setOrigin(0, 0)
+            .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
+        this.add.text(50, 50, "You've escaped!").setFontSize(50);
         this.add.text(50, 100, "Click anywhere to restart.").setFontSize(20);
         this.input.on('pointerdown', () => this.scene.start('intro'));
     }
@@ -338,7 +481,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [Intro, Demo1, Outro, underlake,innerforest],
+    scene: [Intro, Demo1, Outro, underlake,innerforest,castle,heart],
     title: "Adventure Game",
 });
 
