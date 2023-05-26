@@ -14,7 +14,7 @@ class Demo1 extends AdventureScene {
 
 
         let clip = this.add.text(this.w * 0.3, this.w * 0.3, "Lake")
-            .setFontSize(this.s * 2)
+            .setFontSize(this.s * 5)
             .setInteractive()
             .on('pointerover', () => this.showMessage("Jump in?"))
             .on('pointerdown', () => {
@@ -56,7 +56,7 @@ class Demo1 extends AdventureScene {
             });
 
         let key = this.add.text(this.w * 0.5, this.w * 0.1, "Go into the forest")
-            .setFontSize(this.s * 2)
+            .setFontSize(this.s * 5)
             .setInteractive()
             .on('pointerover', () => {
                 this.showMessage("The trees get denser")
@@ -137,38 +137,45 @@ class innerforest extends AdventureScene {
                 });
                 this.gotoScene('heart');
             });
-            let mush=this.add.text(this.w * 0.2, this.h * 0.83, "🍄Mushroom")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                this.showMessage("A mushroom, looks like it's poisonous");
-            })
-            .on('pointerdown', () => {
-                this.tweens.add({
-                    targets: mush,
-                    y: `-=${2 * this.s}`,
-                    alpha: { from: 1, to: 0 },
-                    duration: 500,
-                    onComplete: () => mush.destroy()
+            if(!this.hasItem('Poison Mushroom'))
+            {
+                let mush=this.add.text(this.w * 0.2, this.h * 0.83, "🍄Mushroom")
+                .setFontSize(this.s * 2)
+                .setInteractive()
+                .on('pointerover', () => {
+                    this.showMessage("A mushroom, looks like it's poisonous");
+                })
+                .on('pointerdown', () => {
+                    this.tweens.add({
+                        targets: mush,
+                        y: `-=${2 * this.s}`,
+                        alpha: { from: 1, to: 0 },
+                        duration: 500,
+                        onComplete: () => mush.destroy()
+                    });
+                    this.gainItem('Poison Mushroom');
                 });
-                this.gainItem('Poison Mushroom');
-            });
-            let worm=this.add.text(this.w * 0.45, this.h * 0.83, "🪱Worm")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                this.showMessage("An earthworm, Fish like to eat these right?");
-            })
-            .on('pointerdown', () => {
-                this.tweens.add({
-                    targets: worm,
-                    y: `-=${2 * this.s}`,
-                    alpha: { from: 1, to: 0 },
-                    duration: 500,
-                    onComplete: () => worm.destroy()
+            }
+            if(!this.hasItem('Worm'))
+            {
+                let worm=this.add.text(this.w * 0.45, this.h * 0.83, "🪱Worm")
+                .setFontSize(this.s * 2)
+                .setInteractive()
+                .on('pointerover', () => {
+                    this.showMessage("An earthworm, Fish like to eat these right?");
+                })
+                .on('pointerdown', () => {
+                    this.tweens.add({
+                        targets: worm,
+                        y: `-=${2 * this.s}`,
+                        alpha: { from: 1, to: 0 },
+                        duration: 500,
+                        onComplete: () => worm.destroy()
+                    });
+                    this.gainItem('Worm');
                 });
-                this.gainItem('Worm');
-            });
+            }
+
             let left=this.add.text(this.w * 0.1, this.h * 0.75, "Go Left")
             .setFontSize(this.s * 2)
             .setInteractive()
@@ -231,22 +238,25 @@ class heart extends AdventureScene {
                 });
                 this.gotoScene("demo2");
             });
-            let cheese=this.add.text(this.w * 0.2, this.h * 0.9, "🧀Cheese!")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                this.showMessage("A delicious vril filled snack");
-            })
-            .on('pointerdown', () => {
-                this.tweens.add({
-                    targets: cheese,
-                    y: `-=${2 * this.s}`,
-                    alpha: { from: 1, to: 0 },
-                    duration: 500,
-                    onComplete: () => cheese.destroy()
+            if(!this.hasItem)
+            {
+                let cheese=this.add.text(this.w * 0.2, this.h * 0.9, "🧀Cheese!")
+                .setFontSize(this.s * 2)
+                .setInteractive()
+                .on('pointerover', () => {
+                    this.showMessage("A delicious vril filled snack");
+                })
+                .on('pointerdown', () => {
+                    this.tweens.add({
+                        targets: cheese,
+                        y: `-=${2 * this.s}`,
+                        alpha: { from: 1, to: 0 },
+                        duration: 500,
+                        onComplete: () => cheese.destroy()
+                    });
+                    this.gainItem("cheese")
                 });
-                this.gainItem("cheese")
-            });
+            }
             Heart.on('pointerdown',()=>{
                 if(this.hasItem("Sword")&&this.hasItem("Shield"))
                 {
