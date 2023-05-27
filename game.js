@@ -14,7 +14,7 @@ class Demo1 extends AdventureScene {
 
 
         let clip = this.add.text(this.w * 0.3, this.w * 0.3, "Lake")
-            .setFontSize(this.s * 5)
+            .setFontSize(this.s * 3.5)
             .setInteractive()
             .on('pointerover', () => this.showMessage("Jump in?"))
             .on('pointerdown', () => {
@@ -55,8 +55,10 @@ class Demo1 extends AdventureScene {
                 // });
             });
 
-        let key = this.add.text(this.w * 0.5, this.w * 0.1, "Go into the forest")
-            .setFontSize(this.s * 5)
+        let key = this.add.text(this.w * 0.5, this.w * 0.1, "Go into the forest", {
+            wordWrap: { width: 10 }
+        })
+            .setFontSize(this.s * 3.5)
             .setInteractive()
             .on('pointerover', () => {
                 this.showMessage("The trees get denser")
@@ -106,7 +108,7 @@ class innerforest extends AdventureScene {
     onEnter() {
         this.add.image(0,0,"background1").setOrigin(0,0).setDisplaySize(this.w*.75,this.h);
         let back=this.add.text(this.w * 0.3, this.h * 0.8, "Go back")
-            .setFontSize(this.s * 2)
+            .setFontSize(this.s * 3.5)
             .setInteractive()
             .on('pointerover', () => {
                 this.showMessage("The lake is still out there...");
@@ -122,7 +124,7 @@ class innerforest extends AdventureScene {
                 this.gotoScene('demo1');
             });
             let deep=this.add.text(this.w * 0.35, this.h * 0.3, "Go Even Deeper...")
-            .setFontSize(this.s * 2)
+            .setFontSize(this.s * 3.5)
             .setInteractive()
             .on('pointerover', () => {
                 this.showMessage("What Could Await you here?");
@@ -139,8 +141,8 @@ class innerforest extends AdventureScene {
             });
             if(!this.hasItem('Poison Mushroom'))
             {
-                let mush=this.add.text(this.w * 0.2, this.h * 0.83, "🍄Mushroom")
-                .setFontSize(this.s * 2)
+                let mush=this.add.text(this.w * 0.5, this.h * 0.50, "🍄Mushroom")
+                .setFontSize(this.s * 3.5)
                 .setInteractive()
                 .on('pointerover', () => {
                     this.showMessage("A mushroom, looks like it's poisonous");
@@ -159,7 +161,7 @@ class innerforest extends AdventureScene {
             if(!this.hasItem('Worm'))
             {
                 let worm=this.add.text(this.w * 0.45, this.h * 0.83, "🪱Worm")
-                .setFontSize(this.s * 2)
+                .setFontSize(this.s * 3.5)
                 .setInteractive()
                 .on('pointerover', () => {
                     this.showMessage("An earthworm, Fish like to eat these right?");
@@ -177,7 +179,7 @@ class innerforest extends AdventureScene {
             }
 
             let left=this.add.text(this.w * 0.1, this.h * 0.75, "Go Left")
-            .setFontSize(this.s * 2)
+            .setFontSize(this.s * 3.5)
             .setInteractive()
             .on('pointerover', () => {
                 this.showMessage("You see a structure this way");
@@ -223,7 +225,7 @@ class heart extends AdventureScene {
         this.add.image(0,0,"background3").setOrigin(0,0).setDisplaySize(this.w*.75,this.h);
         let Heart=this.add.sprite(this.w/2-100, this.h/2, 'hart').setOrigin(.5,.5).setInteractive().setScale(2).on('pointerover',()=>{this.showMessage("'Bump-bump'")});
         let lback=this.add.text(this.w * 0.4, this.h * 0.8, "Go Back")
-            .setFontSize(this.s * 2)
+            .setFontSize(this.s * 5)
             .setInteractive()
             .on('pointerover', () => {
                 this.showMessage("go back to the forest?");
@@ -238,10 +240,10 @@ class heart extends AdventureScene {
                 });
                 this.gotoScene("demo2");
             });
-            if(!this.hasItem)
+            if(!this.hasItem('cheese'))
             {
                 let cheese=this.add.text(this.w * 0.2, this.h * 0.9, "🧀Cheese!")
-                .setFontSize(this.s * 2)
+                .setFontSize(this.s * 3.5)
                 .setInteractive()
                 .on('pointerover', () => {
                     this.showMessage("A delicious vril filled snack");
@@ -310,7 +312,7 @@ class castle extends AdventureScene {
         this.add.image(0,0,"background2").setOrigin(0,0).setDisplaySize(this.w*.75,this.h);
         this.add.sprite(this.w/2-100, this.h/2, 'sheol').setOrigin(.5,.5).setInteractive().setScale(2).on('pointerover',()=>{this.showMessage("'I heard you can escape this realm if you kill the heart of the forest'")});
         let shield=this.add.text(this.w * 0.2, this.h * 0.6, "🛡️Shield")
-            .setFontSize(this.s * 2)
+            .setFontSize(this.s * 3.5)
             .setInteractive()
             .on('pointerover', () => {
                 this.showMessage("'My shield? I'll part with it if you give me my favorite snack'");
@@ -331,7 +333,7 @@ class castle extends AdventureScene {
             }
             });
             let gback=this.add.text(this.w * 0.4, this.h * 0.8, "Go Back")
-            .setFontSize(this.s * 2)
+            .setFontSize(this.s * 3.5)
             .setInteractive()
             .on('pointerover', () => {
                 this.showMessage("go back to the forest?");
